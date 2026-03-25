@@ -4,6 +4,7 @@ import com.jiaocai.entity.Textbook;
 import com.jiaocai.entity.User;
 import com.jiaocai.service.TextbookService;
 import com.jiaocai.service.UserService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,22 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner initData(UserService userService, TextbookService textbookService) {
         return args -> {
-            if (userService.count() == 0) {
+            User admin = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getPhone, "admin"));
+            if (admin == null) {
+                User user = new User();
+                user.setName("Admin");
+                user.setPhone("admin");
+                user.setPassword("123456");
+                user.setRole("admin");
+                user.setEmail("admin@example.com");
+                user.setBalance(0.0);
+                user.setVerified(true);
+                userService.save(user);
+                System.out.println("Created admin user: admin / 123456");
+            }
+
+            User existingStudent = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getPhone, "13800138000"));
+            if (existingStudent == null) {
                 User user = new User();
                 user.setName("Test Student");
                 user.setPhone("13800138000");
@@ -24,6 +40,7 @@ public class DataInitializer {
                 user.setRole("student");
                 user.setEmail("student@example.com");
                 user.setBalance(1000.0);
+                user.setVerified(true);
                 userService.save(user);
                 System.out.println("Created test user: 13800138000 / 123456");
                 
@@ -33,6 +50,7 @@ public class DataInitializer {
                 seller.setPassword("123456");
                 seller.setRole("student");
                 seller.setBalance(500.0);
+                seller.setVerified(true);
                 userService.save(seller);
 
                 if (textbookService.count() == 0) {

@@ -98,7 +98,13 @@ const handleLogin = async () => {
       ElMessage.error(res.data.message || '登录失败')
     }
   } catch (error) {
-    ElMessage.error('网络错误')
+    const err = error as any
+    const backendMessage = err?.response?.data?.message
+    if (backendMessage) {
+      ElMessage.error(backendMessage === 'Invalid credentials' ? '账号或密码错误' : backendMessage)
+    } else {
+      ElMessage.error('网络错误，请确认后端已启动并可访问')
+    }
   } finally {
     loading.value = false
   }
