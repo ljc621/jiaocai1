@@ -1,0 +1,83 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "普通用户" as User
+actor "管理员" as Admin
+
+' 管理员继承普通用户的所有功能
+Admin --|> User : 亦可使用
+
+package "认证与个人中心" {
+  usecase "注册" as UC_Register
+  usecase "登录" as UC_Login
+  usecase "修改个人信息" as UC_Profile
+  usecase "管理收货地址" as UC_Address
+}
+
+package "资金与积分" {
+  usecase "余额充值" as UC_Topup
+  usecase "余额提现" as UC_Withdraw
+  usecase "积分兑换" as UC_Redeem
+  usecase "查看交易明细" as UC_Trans
+}
+
+package "教材交易" {
+  usecase "发布教材/卖书" as UC_Sell
+  usecase "编辑教材" as UC_Edit
+  usecase "上架/下架管理" as UC_Manage_Shelf
+  usecase "浏览/搜索教材" as UC_Search
+  usecase "查看详情" as UC_View
+  usecase "加入购物车" as UC_Cart
+  usecase "购买/下单" as UC_Buy
+  usecase "租赁教材" as UC_Rent
+  usecase "捐赠教材" as UC_Donate
+  usecase "收藏商品" as UC_Fav
+}
+
+package "社区与消息" {
+  usecase "发布帖子" as UC_Post
+  usecase "评论/点赞" as UC_Interact
+  usecase "发送私信" as UC_Message
+}
+
+package "后台管理" {
+  usecase "用户管理\n(信用分/封禁)" as UC_Admin_User
+  usecase "教材管理\n(强制下架)" as UC_Admin_Item
+  usecase "订单管理" as UC_Admin_Order
+  usecase "数据统计" as UC_Admin_Stats
+}
+
+' 普通用户关联的用例
+User --> UC_Register
+User --> UC_Login
+User --> UC_Profile
+User --> UC_Address
+
+User --> UC_Topup
+User --> UC_Withdraw
+User --> UC_Redeem
+User --> UC_Trans
+
+User --> UC_Sell
+User --> UC_Edit
+User --> UC_Manage_Shelf
+User --> UC_Search
+User --> UC_View
+User --> UC_Cart
+User --> UC_Buy
+User --> UC_Rent
+User --> UC_Donate
+User --> UC_Fav
+
+User --> UC_Post
+User --> UC_Interact
+User --> UC_Message
+
+' 管理员独有的用例
+Admin --> UC_Admin_User
+Admin --> UC_Admin_Item
+Admin --> UC_Admin_Order
+Admin --> UC_Admin_Stats
+
+@enduml

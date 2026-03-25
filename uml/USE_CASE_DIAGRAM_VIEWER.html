@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教材循环平台 - 用例图</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9fafb;
+        }
+        .container {
+            max-width: 98%;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>教材循环平台 (Jiaocai1) - 用例图</h1>
+        <div class="mermaid">
+flowchart TD 
+     start(["开始"]) --> Role_Select{"选择角色？"} 
+     Role_Select -->|"普通用户"| U_Start("普通用户") 
+     Role_Select -->|"管理员"| A_Start("管理员") 
+ 
+     A_Start -.->|"亦可使用"| U_Start
+
+     U_Start --> Auth_Profile_Group("认证与个人中心") 
+     Auth_Profile_Group --> UC_Register("注册") 
+     Auth_Profile_Group --> UC_Login("登录") 
+     Auth_Profile_Group --> UC_Profile("修改个人信息") 
+     Auth_Profile_Group --> UC_Address("管理收货地址") 
+ 
+     U_Start --> Finance_Points_Group("资金与积分") 
+     Finance_Points_Group --> UC_Topup("余额充值") 
+     Finance_Points_Group --> UC_Withdraw("余额提现") 
+     Finance_Points_Group --> UC_Redeem("积分兑换") 
+     Finance_Points_Group --> UC_Trans("查看交易明细") 
+ 
+     U_Start --> Marketplace_Group("教材交易") 
+     Marketplace_Group --> UC_Sell("发布教材/卖书") 
+     Marketplace_Group --> UC_Edit("编辑教材")
+     Marketplace_Group --> UC_Manage_Shelf("上架/下架管理")
+     Marketplace_Group --> UC_Search("浏览/搜索教材") 
+     Marketplace_Group --> UC_View("查看详情") 
+     Marketplace_Group --> UC_Cart("加入购物车") 
+     Marketplace_Group --> UC_Buy("购买/下单") 
+     Marketplace_Group --> UC_Rent("租赁教材")
+     Marketplace_Group --> UC_Donate("捐赠教材") 
+     Marketplace_Group --> UC_Fav("收藏商品") 
+ 
+     U_Start --> Community_Message_Group("社区与消息") 
+     Community_Message_Group --> UC_Post("发布帖子") 
+     Community_Message_Group --> UC_Interact("评论/点赞") 
+     Community_Message_Group --> UC_Message("发送私信") 
+ 
+     A_Start --> Admin_Console_Group("后台管理") 
+     Admin_Console_Group --> UC_Admin_User("用户管理 '信用分/封禁'") 
+     Admin_Console_Group --> UC_Admin_Item("教材管理 '强制下架'") 
+     Admin_Console_Group --> UC_Admin_Order("订单管理") 
+     Admin_Console_Group --> UC_Admin_Stats("数据统计") 
+ 
+     UC_Register --> finish(["结束"]) 
+     UC_Login --> finish 
+     UC_Profile --> finish 
+     UC_Address --> finish 
+     UC_Topup --> finish 
+     UC_Withdraw --> finish 
+     UC_Redeem --> finish 
+     UC_Trans --> finish 
+     UC_Sell --> finish 
+     UC_Edit --> finish
+     UC_Manage_Shelf --> finish
+     UC_Search --> finish 
+     UC_View --> finish 
+     UC_Cart --> finish 
+     UC_Buy --> finish 
+     UC_Rent --> finish
+     UC_Donate --> finish
+     UC_Fav --> finish 
+     UC_Post --> finish 
+     UC_Interact --> finish 
+     UC_Message --> finish 
+     UC_Admin_User --> finish 
+     UC_Admin_Item --> finish 
+     UC_Admin_Order --> finish 
+     UC_Admin_Stats --> finish 
+    </div>
+</body>
+</html>
